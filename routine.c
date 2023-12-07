@@ -30,26 +30,26 @@ void    do_eating(p_philo *philo)
     if (!get_status(philo))
         return ;
     pthread_mutex_lock(philo->meals_control);
-    philo->lm = get_time();
     if (philo->param->t_teat > -1)
         philo->meals++;
     // philo->state = EATING
+    philo->lm = get_time();
     pthread_mutex_unlock(philo->meals_control);
     print_message(EATING,philo);
     my_usleep(philo->param->t_eat,philo);
-    pthread_mutex_unlock(philo->left_fork);
     pthread_mutex_unlock(philo->right_fork);
+    pthread_mutex_unlock(philo->left_fork);
 }
 
 void    get_forks(p_philo *philo)
 {
     if (!get_status(philo))
         return ;
-    pthread_mutex_lock(philo->left_fork);
+    pthread_mutex_lock(philo->right_fork);
     if (!get_status(philo))
         return ;
     print_message(FORK,philo);
-    pthread_mutex_lock(philo->right_fork);
+    pthread_mutex_lock(philo->left_fork);
     if (!get_status(philo))
         return ;
     print_message(FORK,philo);
@@ -68,6 +68,7 @@ void    do_thinking(p_philo *philo)
     if (!get_status(philo))
         return ;
     print_message(THINKING,philo);
+    my_usleep(1,philo);
 }
 
 void *routine(void *p)
@@ -82,4 +83,5 @@ void *routine(void *p)
         do_thinking(philo);
     // puts("hello");
     }
+    return (NULL);
 }

@@ -36,3 +36,23 @@ int ft_atoi(char *str)
 	// 	return -1;
 	return (r * s);
 }
+
+void	ft_putstr_fd(char *str, int	fd)
+{
+	if (!*str)
+		return ;
+	while (*str)
+		write (fd,&*str++,1);
+}
+
+void error()
+{
+	ft_putstr_fd("-----BAD ARGUMENTS-----\n", 1);
+	ft_putstr_fd("The program arguments (all the arguments > 0) :\n", 1);
+	ft_putstr_fd("./philo n t_die t_eat t_teat\n", 1);
+	ft_putstr_fd("n : numbers of philos\n", 1);
+	ft_putstr_fd("t_die : time to die\n", 1);
+	ft_putstr_fd("t_eat : time to eat\n", 1);
+	ft_putstr_fd("t_teat (optional) : number of meals\n", 1);
+	exit (0);
+}

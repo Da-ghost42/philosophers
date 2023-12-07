@@ -64,6 +64,7 @@ int init_data(p_data *data,s_param *param)
         pthread_mutex_init(&data->state[i], NULL);
     }
     philo_infos(data,param);
+    return (1);
 }
 
 int start_simulation(s_param *param,p_data *data)
@@ -82,7 +83,7 @@ int   get_death(p_philo *philo)
 {
     // printf("==== %lld==== \n",get_time() - philo->lm );
     if (get_time() - philo->lm >= philo->param->t_die)
-        return (print_message(DEAD,philo),1);
+        return (1);
     return (0);
 }
 
@@ -123,6 +124,7 @@ void    monitor_threads(p_data *data)
             if(get_death(&data->ph[i]))
             {
                 kill_philos(data->ph,i);
+                print_message(DEAD,&data->ph[i]);
                 b = 0;
                 pthread_mutex_unlock(data->ph[i].meals_control);
                 break;
@@ -160,7 +162,7 @@ int main (int ac , char **av)
         while (++i < param.n)
             if (pthread_join(data.th[i],NULL))
                  return (puts("here"),0);
-        free(data.forks);
+
     }
-    return (free (data.ph),free(data.state),1);
+    return (free (data.ph),free(data.forks),free(data.state),1);
 }
