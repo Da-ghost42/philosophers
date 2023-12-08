@@ -12,16 +12,16 @@ CFLAGS = -Wall -Werror -Werror
 
 RM = rm -rf
 
-OPTION_FLAG =  #-g -fsanitize=thread
+OPTION_FLAG =  -g -fsanitize=address
 
 
 all:${NAME}
 
 ${NAME}:${OBJS}
-	${CC} ${CFLAGS} ${OBJS} -o ${NAME}
+	${CC} ${CFLAGS} ${OPTION_FLAG} ${OBJS} -o ${NAME}
 %.o:%.c ${HEADER}
 	 @echo "compiling .." 
-	${CC} ${CFLAGS} -c $< -o $@
+	${CC} ${CFLAGS} ${OPTION_FLAG} -c $< -o $@
 
 re : fclean all
 

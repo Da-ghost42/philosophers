@@ -6,7 +6,7 @@
 /*   By: mboutuil <mboutuil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 01:08:46 by mboutuil          #+#    #+#             */
-/*   Updated: 2023/12/08 04:33:56 by mboutuil         ###   ########.fr       */
+/*   Updated: 2023/12/08 13:25:29 by mboutuil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,8 @@ int	main(int ac, char **av)
 	if (!init_data(&data, &param))
 		return (printf("DATA INIT ERROR\n"), 1);
 	if (start_simulation(&param, &data))
-		return (printf("CREATING THREADS EROOR\n"), 1);
+		return (free (data.ph), free(data.forks), free(data.state) \
+			, free(data.th), printf("CREATING THREADS EROOR\n"), 1);
 	monitor_threads(&data);
 	if (param.n == 1)
 		pthread_detach(data.th[0]);
@@ -106,5 +107,6 @@ int	main(int ac, char **av)
 			if (pthread_join(data.th[i], NULL))
 				return (1);
 	}
-	return (free (data.ph), free(data.forks), free(data.state), 0);
+	return (free (data.ph), free(data.forks) \
+		, free(data.state), free(data.th), 0);
 }

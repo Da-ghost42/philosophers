@@ -6,7 +6,7 @@
 /*   By: mboutuil <mboutuil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 01:06:48 by mboutuil          #+#    #+#             */
-/*   Updated: 2023/12/08 04:36:04 by mboutuil         ###   ########.fr       */
+/*   Updated: 2023/12/08 13:19:27 by mboutuil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	do_thinking(t_philo *philo)
 	if (!get_status (philo))
 		return ;
 	print_message (THINKING, philo);
-	my_usleep (1, philo);
+	usleep(200);
 }
 
 void	kill_philos(t_philo *philo, int body)

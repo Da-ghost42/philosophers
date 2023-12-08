@@ -6,7 +6,7 @@
 /*   By: mboutuil <mboutuil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 01:41:04 by mboutuil          #+#    #+#             */
-/*   Updated: 2023/12/08 02:24:01 by mboutuil         ###   ########.fr       */
+/*   Updated: 2023/12/08 10:31:24 by mboutuil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,13 +40,13 @@ int	init_data(t_data *data, t_param *param)
 		return (0);
 	data->forks = malloc(sizeof(pthread_mutex_t) * param->n);
 	if (!data->forks)
-		return (0);
+		return (free (data->ph), 0);
 	data->state = malloc(sizeof(pthread_mutex_t) * param->n);
 	if (!data->state)
-		return (0);
+		return (free (data->ph), free (data->forks), 0);
 	data->th = malloc(sizeof(pthread_t) * param->n);
 	if (!data->th)
-		return (0);
+		return (free (data->ph), free (data->forks), free(data->state), 0);
 	while (++i < param->n)
 	{
 		pthread_mutex_init(&data->forks[i], NULL);
