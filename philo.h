@@ -6,7 +6,7 @@
 /*   By: mboutuil <mboutuil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 19:19:43 by mboutuil          #+#    #+#             */
-/*   Updated: 2023/12/08 01:54:29 by mboutuil         ###   ########.fr       */
+/*   Updated: 2023/12/08 02:25:46 by mboutuil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,12 @@
 
 # include <pthread.h>
 # include <stdlib.h>
-#include<stdbool.h>
+# include <stdbool.h>
 # include <sys/time.h>
 # include <unistd.h>
 # include <stdio.h>
 
-#define TRUE 1
-#define MAX_THREAD 200
-enum ph_state
+enum e_state
 {
 	THINKING,
 	FORK,
@@ -31,63 +29,52 @@ enum ph_state
 	DEAD,
 };
 
-typedef struct p_param
+typedef struct s_param
 {
-    int				n;
+	int				n;
 /*------------------------*/
 	int				t_die;
 	int				t_eat;
 	int				t_sleep;
 	int				t_teat;
-}s_param;
+}	t_param;
 
 typedef struct s_philo
 {
 	int				id;
-	int				meals; // PAY ATTENTION
-	long long		lm; 	// PAY ATTENTION
-	enum ph_state 	state; // PAY ATTENTION
-    s_param          *param;
+	int				meals;
+	long long		lm;
+	enum e_state	state;
+	t_param			*param;
 	pthread_mutex_t	*left_fork;
 	pthread_mutex_t	*right_fork;
-    pthread_mutex_t  *meals_control;
-}					p_philo;
-
+	pthread_mutex_t	*meals_control;
+}				t_philo;
 
 typedef struct s_data
-{//general infos
-	struct s_philo *ph;
-/*------------------------*/
-
-	pthread_mutex_t *forks;
-    pthread_mutex_t *state;
+{
+	struct s_philo	*ph;
+	pthread_mutex_t	*forks;
+	pthread_mutex_t	*state;
 	pthread_t		*th;
 	pthread_t		collect;
-/*-----DEAD BODY--------*/
-	int					b;
-}					p_data;
-/*---libft-tools---*/
+	int				b;
+}					t_data;
+
 void				error(void);
 int					ft_atoi(char *str);
 void				ft_putstr_fd(char *str, int fd);
-/*-----------------*/
 long long			get_time(void);
-void	kill_philos(p_philo *philo, int body);
-void	philo_infos(p_data *data, s_param *param);
-void 	*routine(void *p);
-void	sycronize_philos(p_philo *philo);
-void	do_thinking(p_philo *philo);
-void	do_sleeping(p_philo *philo);
-void	get_forks(p_philo *philo);
-void    my_usleep(long long time,p_philo *philo);
-int		init_data(p_data *data, s_param *param);
-/*--philosophers actions--*/ 
-void				do_eating(p_philo *philo);
-void				sleep_action(p_philo *philo);
-void				print_message(enum ph_state state ,p_philo *philo);
-int	check_param (int ac, char **av,s_param *data);
-void				think_action(p_philo *philo);
-/*----death checker----*/
-int get_status(p_philo *philo);
-void				*boddies_collecter(void *bodd);
+void				kill_philos(t_philo *philo, int body);
+void				philo_infos(t_data *data, t_param *param);
+void				*routine(void *p);
+void				do_thinking(t_philo *philo);
+void				do_sleeping(t_philo *philo);
+void				get_forks(t_philo *philo);
+void				my_usleep(long long time, t_philo *philo);
+int					init_data(t_data *data, t_param *param);
+void				do_eating(t_philo *philo);
+void				print_message(enum e_state state, t_philo *philo);
+int					check_param(int ac, char **av, t_param *data);
+int					get_status(t_philo *philo);
 #endif

@@ -6,14 +6,13 @@
 /*   By: mboutuil <mboutuil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 01:06:48 by mboutuil          #+#    #+#             */
-/*   Updated: 2023/12/08 01:39:31 by mboutuil         ###   ########.fr       */
+/*   Updated: 2023/12/08 02:27:29 by mboutuil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "philo.h"
 
-#include"philo.h"
-
-void	do_eating(p_philo *philo)
+void	do_eating(t_philo *philo)
 {
 	if (!get_status (philo))
 		return ;
@@ -28,7 +27,7 @@ void	do_eating(p_philo *philo)
 	pthread_mutex_unlock(philo->left_fork);
 }
 
-void	get_forks(p_philo *philo)
+void	get_forks(t_philo *philo)
 {
 	if (!get_status (philo))
 		return ;
@@ -42,7 +41,7 @@ void	get_forks(p_philo *philo)
 	print_message (FORK, philo);
 }
 
-void	do_sleeping(p_philo *philo)
+void	do_sleeping(t_philo *philo)
 {
 	if (!get_status (philo))
 		return ;
@@ -50,7 +49,7 @@ void	do_sleeping(p_philo *philo)
 	my_usleep (philo->param->t_sleep, philo);
 }
 
-void	do_thinking(p_philo *philo)
+void	do_thinking(t_philo *philo)
 {
 	if (!get_status (philo))
 		return ;
@@ -58,7 +57,7 @@ void	do_thinking(p_philo *philo)
 	my_usleep (1, philo);
 }
 
-void	kill_philos(p_philo *philo, int body)
+void	kill_philos(t_philo *philo, int body)
 {
 	int	i;
 

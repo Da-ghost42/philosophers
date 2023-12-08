@@ -6,13 +6,13 @@
 /*   By: mboutuil <mboutuil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 01:21:47 by mboutuil          #+#    #+#             */
-/*   Updated: 2023/12/08 01:31:56 by mboutuil         ###   ########.fr       */
+/*   Updated: 2023/12/08 02:22:36 by mboutuil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h" 
 
-void	print_message(enum ph_state state, p_philo *philo)
+void	print_message(enum e_state state, t_philo *philo)
 {
 	char	*p[5];
 
@@ -44,7 +44,7 @@ int	ft_atoi(char *str)
 
 	i = 0;
 	r = 0;
-	s = 0;
+	s = 1;
 	if (str[i] == '-' || str[i] == '+')
 	{
 		if (str[i] == '-')

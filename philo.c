@@ -6,13 +6,13 @@
 /*   By: mboutuil <mboutuil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 01:08:46 by mboutuil          #+#    #+#             */
-/*   Updated: 2023/12/08 01:57:46 by mboutuil         ###   ########.fr       */
+/*   Updated: 2023/12/08 02:22:18 by mboutuil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	philo_infos(p_data *data, s_param *param)
+void	philo_infos(t_data *data, t_param *param)
 {
 	int	i;
 
@@ -36,7 +36,7 @@ void	philo_infos(p_data *data, s_param *param)
 	}
 }
 
-int	start_simulation(s_param *param, p_data *data)
+int	start_simulation(t_param *param, t_data *data)
 {
 	int	i;
 
@@ -48,14 +48,14 @@ int	start_simulation(s_param *param, p_data *data)
 	return (0);
 }
 
-int	get_death(p_philo *philo)
+int	get_death(t_philo *philo)
 {
 	if (get_time() - philo->lm >= philo->param->t_die)
 		return (1);
 	return (0);
 }
 
-void	monitor_threads(p_data *data)
+void	monitor_threads(t_data *data)
 {
 	int	i;
 	int	flag;
@@ -72,8 +72,6 @@ void	monitor_threads(p_data *data)
 			{
 				(kill_philos(data->ph, i), print_message(DEAD, &data->ph[i]));
 				b = 0;
-				pthread_mutex_unlock(data->ph[i].meals_control);
-				break ;
 			}
 			if (data->ph[i].meals == data->ph->param->t_teat)
 				flag++;
@@ -87,8 +85,8 @@ void	monitor_threads(p_data *data)
 
 int	main(int ac, char **av)
 {
-	s_param	param;
-	p_data	data;
+	t_param	param;
+	t_data	data;
 	int		i;
 
 	i = -1;

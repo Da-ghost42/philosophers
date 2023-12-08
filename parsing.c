@@ -6,17 +6,17 @@
 /*   By: mboutuil <mboutuil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 01:41:04 by mboutuil          #+#    #+#             */
-/*   Updated: 2023/12/08 01:58:54 by mboutuil         ###   ########.fr       */
+/*   Updated: 2023/12/08 02:24:01 by mboutuil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include"philo.h"
+#include "philo.h"
 
-int	check_param(int ac, char **av, s_param *data)
+int	check_param(int ac, char **av, t_param *data)
 {
-	if ((ac != 5 && ac != 6) || !av[1])
+	if ((ac != 5 && ac != 6))
 		return (0);
-	data->n = ft_atoi (av[1]);
+	data->n = ft_atoi(av[1]);
 	data->t_die = ft_atoi(av[2]);
 	data->t_eat = ft_atoi(av[3]);
 	data->t_sleep = ft_atoi(av[4]);
@@ -30,12 +30,12 @@ int	check_param(int ac, char **av, s_param *data)
 	return (1);
 }
 
-int	init_data(p_data *data, s_param *param)
+int	init_data(t_data *data, t_param *param)
 {
 	int	i;
 
 	i = -1;
-	data->ph = malloc(sizeof(p_philo) * param->n);
+	data->ph = malloc(sizeof(t_philo) * param->n);
 	if (!data->ph)
 		return (0);
 	data->forks = malloc(sizeof(pthread_mutex_t) * param->n);
@@ -55,4 +55,3 @@ int	init_data(p_data *data, s_param *param)
 	philo_infos(data, param);
 	return (1);
 }
-
