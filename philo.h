@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: simo <simo@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: mboutuil <mboutuil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/09 19:19:43 by mboutuil          #+#    #+#             */
-/*   Updated: 2023/12/07 20:04:20 by simo             ###   ########.fr       */
+/*   Updated: 2023/12/08 01:54:29 by mboutuil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,15 @@ int					ft_atoi(char *str);
 void				ft_putstr_fd(char *str, int fd);
 /*-----------------*/
 long long			get_time(void);
-void *routine(void *p);
+void	kill_philos(p_philo *philo, int body);
+void	philo_infos(p_data *data, s_param *param);
+void 	*routine(void *p);
 void	sycronize_philos(p_philo *philo);
+void	do_thinking(p_philo *philo);
+void	do_sleeping(p_philo *philo);
+void	get_forks(p_philo *philo);
+void    my_usleep(long long time,p_philo *philo);
+int		init_data(p_data *data, s_param *param);
 /*--philosophers actions--*/ 
 void				do_eating(p_philo *philo);
 void				sleep_action(p_philo *philo);
