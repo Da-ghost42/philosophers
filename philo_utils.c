@@ -6,7 +6,7 @@
 /*   By: mboutuil <mboutuil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 01:21:47 by mboutuil          #+#    #+#             */
-/*   Updated: 2023/12/08 02:22:36 by mboutuil         ###   ########.fr       */
+/*   Updated: 2023/12/08 04:14:57 by mboutuil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,12 @@ int	ft_atoi(char *str)
 			s *= -1;
 		i++;
 	}
-	while (str[i] && str[i] >= '0' && str[i] <= '9')
+	while (str[i])
+	{
+		if (!(str[i] >= '0' && str[i] <= '9'))
+			return (-1);
 		r = r * 10 + str[i++] - 48;
+	}
 	return (r * s);
 }
 

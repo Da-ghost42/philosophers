@@ -6,7 +6,7 @@
 /*   By: mboutuil <mboutuil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 01:06:52 by mboutuil          #+#    #+#             */
-/*   Updated: 2023/12/08 02:29:13 by mboutuil         ###   ########.fr       */
+/*   Updated: 2023/12/08 04:36:34 by mboutuil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	*routine(void *p)
 	{
 		get_forks(philo);
 		do_eating(philo);
+		pthread_mutex_unlock(philo->right_fork);
+		pthread_mutex_unlock(philo->left_fork);
 		do_sleeping(philo);
 		do_thinking(philo);
 	}

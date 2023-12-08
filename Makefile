@@ -12,7 +12,7 @@ CFLAGS = -Wall -Werror -Werror
 
 RM = rm -rf
 
-OPTION_FLAG =  -g -fsanitize=thread 
+OPTION_FLAG =  #-g -fsanitize=thread
 
 
 all:${NAME}

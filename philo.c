@@ -6,7 +6,7 @@
 /*   By: mboutuil <mboutuil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 01:08:46 by mboutuil          #+#    #+#             */
-/*   Updated: 2023/12/08 02:22:18 by mboutuil         ###   ########.fr       */
+/*   Updated: 2023/12/08 04:33:56 by mboutuil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,25 +61,26 @@ void	monitor_threads(t_data *data)
 	int	flag;
 	int	b;
 
-	while (1)
+	b = 1;
+	flag = 0;
+	while (flag != data->ph->param->n && b)
 	{
 		flag = 0;
-		i = 0;
-		while (i < data->ph->param->n)
+		i = -1;
+		while (++i < data->ph->param->n)
 		{
 			pthread_mutex_lock(data->ph[i].meals_control);
+			if (data->ph[i].meals == data->ph->param->t_teat)
+				flag++;
 			if (get_death(&data->ph[i]))
 			{
 				(kill_philos(data->ph, i), print_message(DEAD, &data->ph[i]));
+				pthread_mutex_unlock(data->ph[i].meals_control);
 				b = 0;
+				break ;
 			}
-			if (data->ph[i].meals == data->ph->param->t_teat)
-				flag++;
 			pthread_mutex_unlock(data->ph[i].meals_control);
-			i++;
 		}
-		if (flag == data->ph->param->n || !b)
-			break ;
 	}
 }
 

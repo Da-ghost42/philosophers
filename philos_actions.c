@@ -6,7 +6,7 @@
 /*   By: mboutuil <mboutuil@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/08 01:06:48 by mboutuil          #+#    #+#             */
-/*   Updated: 2023/12/08 02:27:29 by mboutuil         ###   ########.fr       */
+/*   Updated: 2023/12/08 04:36:04 by mboutuil         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,6 @@ void	do_eating(t_philo *philo)
 	pthread_mutex_unlock (philo->meals_control);
 	print_message (EATING, philo);
 	my_usleep(philo->param->t_eat, philo);
-	pthread_mutex_unlock(philo->right_fork);
-	pthread_mutex_unlock(philo->left_fork);
 }
 
 void	get_forks(t_philo *philo)
@@ -61,17 +59,16 @@ void	kill_philos(t_philo *philo, int body)
 {
 	int	i;
 
-	i = 0;
-	while (i < philo->param->n)
+	i = -1;
+	while (++i < philo->param->n)
 	{
 		if (body == i)
 		{
-			philo[i++].state = DEAD;
+			philo[i].state = DEAD;
 			continue ;
 		}
 		pthread_mutex_lock(philo[i].meals_control);
 		philo[i].state = DEAD;
 		pthread_mutex_unlock(philo[i].meals_control);
-		i++;
 	}
 }
